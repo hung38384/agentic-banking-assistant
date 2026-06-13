@@ -1,0 +1,90 @@
+{"id": "q001", "question": "What is the minimum opening balance for the MB Digital Savings Account?", "expected_source": "savings-account", "expected_intent": "product_qa"}
+{"id": "q002", "question": "Does the MB Digital Savings Account charge a monthly maintenance fee?", "expected_source": "savings-account", "expected_intent": "fee_lookup"}
+{"id": "q003", "question": "Can the assistant invent the current VND deposit interest rate?", "expected_source": "savings-account", "expected_intent": "product_qa"}
+{"id": "q004", "question": "How is savings account interest calculated?", "expected_source": "savings-account", "expected_intent": "product_qa"}
+{"id": "q005", "question": "What identity document is needed for account opening?", "expected_source": "savings-account", "expected_intent": "product_qa"}
+{"id": "q006", "question": "What is the debit card replacement fee?", "expected_source": "savings-account", "expected_intent": "fee_lookup"}
+{"id": "q007", "question": "How many free NAPAS ATM withdrawals do I get per month?", "expected_source": "savings-account", "expected_intent": "fee_lookup"}
+{"id": "q008", "question": "What is the interbank ATM withdrawal fee after free withdrawals?", "expected_source": "savings-account", "expected_intent": "fee_lookup"}
+{"id": "q009", "question": "When does account closure require branch verification?", "expected_source": "savings-account", "expected_intent": "product_qa"}
+{"id": "q010", "question": "What happens if the current deposit rate table is missing?", "expected_source": "savings-account", "expected_intent": "product_qa"}
+{"id": "q011", "question": "Does the savings account support QR payments?", "expected_source": "savings-account", "expected_intent": "product_qa"}
+{"id": "q012", "question": "Are domestic transfers supported in digital banking?", "expected_source": "savings-account", "expected_intent": "product_qa"}
+{"id": "q013", "question": "What is the SMS banking fee condition?", "expected_source": "savings-account", "expected_intent": "fee_lookup"}
+{"id": "q014", "question": "Can the assistant change my account data?", "expected_source": "savings-account", "expected_intent": "product_qa"}
+{"id": "q015", "question": "What account situations require human review?", "expected_source": "savings-account", "expected_intent": "product_qa"}
+{"id": "q016", "question": "What is the annual fee for the MB Visa Classic Credit Card?", "expected_source": "credit-card", "expected_intent": "fee_lookup"}
+{"id": "q017", "question": "What spending amount waives the MB Visa Classic annual fee?", "expected_source": "credit-card", "expected_intent": "fee_lookup"}
+{"id": "q018", "question": "What is the late payment fee for the credit card?", "expected_source": "credit-card", "expected_intent": "fee_lookup"}
+{"id": "q019", "question": "What is the cash advance fee for the credit card?", "expected_source": "credit-card", "expected_intent": "fee_lookup"}
+{"id": "q020", "question": "What minimum income is required for the MB Visa Classic Credit Card?", "expected_source": "credit-card", "expected_intent": "eligibility"}
+{"id": "q021", "question": "What age is required for the credit card?", "expected_source": "credit-card", "expected_intent": "eligibility"}
+{"id": "q022", "question": "Do reward points apply to cash advances?", "expected_source": "credit-card", "expected_intent": "product_qa"}
+{"id": "q023", "question": "Can you guarantee credit card approval?", "expected_source": "credit-card", "expected_intent": "product_qa"}
+{"id": "q024", "question": "Does the card require CIC review?", "expected_source": "credit-card", "expected_intent": "product_qa"}
+{"id": "q025", "question": "Which credit card actions need human review?", "expected_source": "credit-card", "expected_intent": "product_qa"}
+{"id": "q026", "question": "Are gambling transactions eligible for reward points?", "expected_source": "credit-card", "expected_intent": "product_qa"}
+{"id": "q027", "question": "Can you recommend this card as the best option for me?", "expected_source": "credit-card", "expected_intent": "product_qa"}
+{"id": "q028", "question": "What happens for refunded transactions and reward points?", "expected_source": "credit-card", "expected_intent": "product_qa"}
+{"id": "q029", "question": "Does the card require fraud screening?", "expected_source": "credit-card", "expected_intent": "product_qa"}
+{"id": "q030", "question": "What stable income history is needed for card applicants?", "expected_source": "credit-card", "expected_intent": "eligibility"}
+{"id": "q031", "question": "What is the collateral appraisal fee for a home loan?", "expected_source": "home-loan", "expected_intent": "fee_lookup"}
+{"id": "q032", "question": "When is the home loan early repayment fee waived?", "expected_source": "home-loan", "expected_intent": "fee_lookup"}
+{"id": "q033", "question": "What is the minimum income for an MB home loan?", "expected_source": "home-loan", "expected_intent": "eligibility"}
+{"id": "q034", "question": "How many months of employment are required for a home loan?", "expected_source": "home-loan", "expected_intent": "eligibility"}
+{"id": "q035", "question": "Does home loan approval depend on collateral valuation?", "expected_source": "home-loan", "expected_intent": "product_qa"}
+{"id": "q036", "question": "Can the assistant guarantee home loan approval?", "expected_source": "home-loan", "expected_intent": "product_qa"}
+{"id": "q037", "question": "What third-party fees are excluded from repayment estimates?", "expected_source": "home-loan", "expected_intent": "product_qa"}
+{"id": "q038", "question": "Can the assistant quote unpublished preferential interest rates?", "expected_source": "home-loan", "expected_intent": "product_qa"}
+{"id": "q039", "question": "Does a home loan require CIC credit history review?", "expected_source": "home-loan", "expected_intent": "product_qa"}
+{"id": "q040", "question": "What sensitive home loan actions require human banker review?", "expected_source": "home-loan", "expected_intent": "product_qa"}
+{"id": "q041", "question": "Calculate a 500000000 VND home loan at 8 percent for 60 months", "expected_source": "home-loan", "expected_intent": "loan_calculation"}
+{"id": "q042", "question": "Calculate repayment for a 300000000 VND loan at 7.5 percent over 36 months", "expected_source": "home-loan", "expected_intent": "loan_calculation"}
+{"id": "q043", "question": "What is the early repayment fee range in the first 3 years?", "expected_source": "home-loan", "expected_intent": "fee_lookup"}
+{"id": "q044", "question": "Can collateral valuation be disputed through the assistant alone?", "expected_source": "home-loan", "expected_intent": "product_qa"}
+{"id": "q045", "question": "What is the minimum applicant age for a home loan?", "expected_source": "home-loan", "expected_intent": "eligibility"}
+{"id": "q046", "question": "What minimum income is required for an MB personal loan?", "expected_source": "personal-loan", "expected_intent": "eligibility"}
+{"id": "q047", "question": "How many employment months are required for a personal loan?", "expected_source": "personal-loan", "expected_intent": "eligibility"}
+{"id": "q048", "question": "Can the assistant state that a personal loan will be approved?", "expected_source": "personal-loan", "expected_intent": "product_qa"}
+{"id": "q049", "question": "Does personal loan approval depend on CIC review?", "expected_source": "personal-loan", "expected_intent": "product_qa"}
+{"id": "q050", "question": "Calculate a 100000000 VND personal loan at 12 percent for 24 months", "expected_source": "personal-loan", "expected_intent": "loan_calculation"}
+{"id": "q051", "question": "Calculate a 75000000 VND personal loan at 10 percent for 18 months", "expected_source": "personal-loan", "expected_intent": "loan_calculation"}
+{"id": "q052", "question": "What personal loan actions require human review?", "expected_source": "personal-loan", "expected_intent": "product_qa"}
+{"id": "q053", "question": "Can the assistant advise a customer to borrow more than they can repay?", "expected_source": "personal-loan", "expected_intent": "product_qa"}
+{"id": "q054", "question": "Does employer verification affect personal loan approval?", "expected_source": "personal-loan", "expected_intent": "product_qa"}
+{"id": "q055", "question": "What data is needed before checking personal loan eligibility?", "expected_source": "personal-loan", "expected_intent": "eligibility"}
+{"id": "q056", "question": "Show my account summary", "expected_source": "digital-banking-and-core-integration", "expected_intent": "account_summary"}
+{"id": "q057", "question": "Find my recent ATM transactions", "expected_source": "digital-banking-and-core-integration", "expected_intent": "transaction_search"}
+{"id": "q058", "question": "What is my loan status and next due date?", "expected_source": "digital-banking-and-core-integration", "expected_intent": "loan_status"}
+{"id": "q059", "question": "Create a complaint ticket for suspected fraud", "expected_source": "digital-banking-and-core-integration", "expected_intent": "support"}
+{"id": "q060", "question": "Which Hanoi branch supports loan consultation?", "expected_source": "digital-banking-and-core-integration", "expected_intent": "branch_finder"}
+{"id": "q061", "question": "Which Ho Chi Minh City branch supports credit card services?", "expected_source": "digital-banking-and-core-integration", "expected_intent": "branch_finder"}
+{"id": "q062", "question": "Which Da Nang branch supports cash service?", "expected_source": "digital-banking-and-core-integration", "expected_intent": "branch_finder"}
+{"id": "q063", "question": "Can personal banking data be stored in prompts?", "expected_source": "digital-banking-and-core-integration", "expected_intent": "product_qa"}
+{"id": "q064", "question": "What does the adapter layer do in core banking integration?", "expected_source": "digital-banking-and-core-integration", "expected_intent": "product_qa"}
+{"id": "q065", "question": "Why is customer consent required before personal-data tools?", "expected_source": "digital-banking-and-core-integration", "expected_intent": "product_qa"}
+{"id": "q066", "question": "What fields can account summary responses include?", "expected_source": "digital-banking-and-core-integration", "expected_intent": "account_summary"}
+{"id": "q067", "question": "What fields can transaction responses include?", "expected_source": "digital-banking-and-core-integration", "expected_intent": "transaction_search"}
+{"id": "q068", "question": "What fields can loan status responses include?", "expected_source": "digital-banking-and-core-integration", "expected_intent": "loan_status"}
+{"id": "q069", "question": "Can the assistant access my balance without authentication?", "expected_source": "digital-banking-and-core-integration", "expected_intent": "account_summary"}
+{"id": "q070", "question": "Can the assistant submit a support ticket without human review?", "expected_source": "digital-banking-and-core-integration", "expected_intent": "support"}
+{"id": "q071", "question": "Số dư mở tài khoản tối thiểu là bao nhiêu?", "expected_source": "vietnamese-banking-services", "expected_intent": "product_qa"}
+{"id": "q072", "question": "Phí rút tiền ATM NAPAS ngân hàng khác là bao nhiêu?", "expected_source": "vietnamese-banking-services", "expected_intent": "fee_lookup"}
+{"id": "q073", "question": "Phí cấp lại thẻ ghi nợ là bao nhiêu?", "expected_source": "vietnamese-banking-services", "expected_intent": "fee_lookup"}
+{"id": "q074", "question": "Phí thường niên thẻ tín dụng MB Visa Classic là bao nhiêu?", "expected_source": "vietnamese-banking-services", "expected_intent": "fee_lookup"}
+{"id": "q075", "question": "Điều kiện miễn phí thường niên thẻ tín dụng là gì?", "expected_source": "vietnamese-banking-services", "expected_intent": "fee_lookup"}
+{"id": "q076", "question": "Thu nhập tối thiểu để mở thẻ tín dụng là bao nhiêu?", "expected_source": "vietnamese-banking-services", "expected_intent": "eligibility"}
+{"id": "q077", "question": "Phí trả chậm thẻ tín dụng là bao nhiêu?", "expected_source": "vietnamese-banking-services", "expected_intent": "fee_lookup"}
+{"id": "q078", "question": "Phí ứng tiền mặt thẻ tín dụng là bao nhiêu?", "expected_source": "vietnamese-banking-services", "expected_intent": "fee_lookup"}
+{"id": "q079", "question": "Vay mua nhà yêu cầu thu nhập tối thiểu bao nhiêu?", "expected_source": "vietnamese-banking-services", "expected_intent": "eligibility"}
+{"id": "q080", "question": "Phí thẩm định tài sản vay mua nhà là bao nhiêu?", "expected_source": "vietnamese-banking-services", "expected_intent": "fee_lookup"}
+{"id": "q081", "question": "Trả nợ trước hạn vay mua nhà bị tính phí thế nào?", "expected_source": "vietnamese-banking-services", "expected_intent": "fee_lookup"}
+{"id": "q082", "question": "Tính khoản vay 100000000 VND lãi suất 10% trong 24 tháng", "expected_source": "vietnamese-banking-services", "expected_intent": "loan_calculation"}
+{"id": "q083", "question": "Tôi có đủ điều kiện vay tín chấp không nếu thu nhập 9000000 VND?", "expected_source": "vietnamese-banking-services", "expected_intent": "eligibility"}
+{"id": "q084", "question": "Trợ lý có được tự bịa lãi suất tiền gửi không?", "expected_source": "vietnamese-banking-services", "expected_intent": "product_qa"}
+{"id": "q085", "question": "Khiếu nại gian lận thẻ cần xử lý thế nào?", "expected_source": "vietnamese-banking-services", "expected_intent": "support"}
+{"id": "q086", "question": "Tôi muốn xem lịch sử giao dịch gần đây", "expected_source": "vietnamese-banking-services", "expected_intent": "transaction_search"}
+{"id": "q087", "question": "Cho tôi xem trạng thái khoản vay", "expected_source": "vietnamese-banking-services", "expected_intent": "loan_status"}
+{"id": "q088", "question": "Chi nhánh Hà Nội nào hỗ trợ tư vấn vay?", "expected_source": "vietnamese-banking-services", "expected_intent": "branch_finder"}
+{"id": "q089", "question": "Tranh chấp giao dịch có cần nhân viên phê duyệt không?", "expected_source": "vietnamese-banking-services", "expected_intent": "support"}
+{"id": "q090", "question": "Trợ lý có được đảm bảo phê duyệt khoản vay không?", "expected_source": "vietnamese-banking-services", "expected_intent": "product_qa"}

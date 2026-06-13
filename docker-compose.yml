@@ -1,0 +1,16 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      API_KEY: dev-secret
+      LLM_PROVIDER: mock
+      VECTOR_BACKEND: chroma
+      CHROMA_DIR: /app/.chroma
+    volumes:
+      - chroma_data:/app/.chroma
+
+volumes:
+  chroma_data:
+

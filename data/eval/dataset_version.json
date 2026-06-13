@@ -1,0 +1,12 @@
+{
+  "dataset_name": "agentic-banking-assistant-eval",
+  "version": "2026.06.13.1",
+  "documents_version": "synthetic-vietnam-mb-style-docs-v3",
+  "question_count": 90,
+  "red_team_count": 12,
+  "golden_answer_count": 8,
+  "customer_journey_count": 4,
+  "agentic_trajectory_count": 8,
+  "retrieval_ablation_variants": 5,
+  "notes": "Synthetic, non-MBBank Vietnam/VND product and customer data for portfolio evaluation."
+}

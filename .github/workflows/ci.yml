@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      run_ragas:
+        description: "Run real RAGAS judge evaluation"
+        required: false
+        default: "false"
+
+jobs:
+  test-and-evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Run unit and integration tests
+        run: pytest
+
+      - name: Run end-user smoke test
+        env:
+          API_KEY: dev-secret
+          LLM_PROVIDER: mock
+          MEMORY_PERSISTENCE_ENABLED: "false"
+          SEMANTIC_CACHE_ENABLED: "false"
+        run: python scripts/end_user_smoke_test.py
+
+      - name: Build expanded eval dataset
+        run: python scripts/build_eval_dataset.py
+
+      - name: Run offline evaluation suite
+        run: |
+          python scripts/evaluate.py
+          python scripts/evaluate_security.py
+          python scripts/evaluate_hallucination.py
+          python scripts/evaluate_agentic.py
+          python scripts/evaluate_memory.py
+          python scripts/evaluate_messy_data.py
+          python scripts/evaluate_vietnamese.py
+          python scripts/evaluate_retrieval_ablation.py --limit 30
+
+      - name: Build Docker image
+        run: docker build -t agentic-banking-assistant:ci .
+
+  ragas:
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.run_ragas == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install RAGAS dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev,ragas]"
+
+      - name: Run real RAGAS with Groq judge
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          RAGAS_JUDGE_PROVIDER: groq
+        run: python scripts/evaluate_ragas.py --cases 4 --judge-provider groq --app-provider mock --mode metric --timeout 30 --max-retries 0
