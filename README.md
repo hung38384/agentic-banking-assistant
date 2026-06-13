@@ -1,6 +1,8 @@
 ﻿# Agentic Banking Assistant with RAG and Tool Calling
 
-Production-oriented AI banking assistant built for an AI Engineer Fresher/Junior portfolio. It demonstrates controlled agentic RAG, LangGraph orchestration, hybrid retrieval, tool calling, memory, policy guardrails, HITL approval, observability, security evaluation, FastAPI backend design, and practical optimization.
+Production-oriented AI banking assistant prototype built for an AI Engineer Fresher/Junior portfolio. It demonstrates controlled agentic RAG, LangGraph orchestration, hybrid retrieval, tool calling, memory, policy guardrails, HITL approval, observability, security evaluation, FastAPI backend design, and practical optimization.
+
+This repository focuses on the **AI serving layer** of a banking assistant. It is not a claim of production readiness for a real bank, and it does not connect to real core banking systems or real customer data.
 
 ## What It Does
 
@@ -8,14 +10,14 @@ The assistant answers questions about savings accounts, credit cards, personal l
 
 ## Interview Highlights
 
-This project is designed to be evaluated as an AI backend system, not just as a chat demo:
+This project is designed to be evaluated as an AI backend prototype, not just as a chat demo:
 
 - Controlled LangGraph agent with planning, retrieval/tool decisions, execution, critic verification, and retry.
 - Hybrid RAG using BM25 + vector retrieval, reranking, contextual compression, citations, and retrieval ablation.
 - Tool calling for fees, loan repayment, eligibility, branch guidance, support escalation, account summary, transactions, and loan status.
 - Consent-aware memory for incomplete multi-turn banking queries, including pending task and slot filling.
-- Bank-style safety controls: prompt injection detection, SQL injection simulation, policy-as-code guardrails, RBAC, PII masking/tokenization, audit events, and HITL interrupts.
-- Evaluation harnesses for retrieval, groundedness, hallucination, red-team attacks, agentic trajectory, golden regression, Vietnamese queries, messy data, and synthetic customer journeys.
+- Banking-style safety controls: prompt injection detection, SQL injection simulation, policy-as-code guardrails, RBAC, PII masking/tokenization, audit events, and HITL interrupts.
+- Evaluation harnesses for retrieval, groundedness, hallucination, red-team attacks, agentic trajectory, golden regression, Vietnamese queries, messy data, and synthetic customer journeys. These are primarily regression tests, not proof of real-world production quality.
 - Production packaging with FastAPI, Docker, CI, GHCR image publishing, and a production compose deploy path.
 
 ## Architecture
@@ -82,12 +84,12 @@ This is intentionally a **controlled agentic RAG system**, not an unconstrained 
 - `loan_status_lookup(user_profile)`: returns synthetic loan status, principal, next due amount, DPD, and repayment metadata.
 - `branch_finder(province, service)`: returns branch/service-center guidance from detailed mock branch data.
 
-## Bank-Style Integration Readiness
+## Banking-Style Integration Boundary
 
-This project does not claim to connect to real Bank systems. Instead, it implements a realistic adapter boundary that can be replaced by an authenticated bank API gateway later:
+This project does not connect to real bank systems. It implements a small adapter boundary to show where an AI service would call approved backend APIs, but it intentionally does not attempt to solve the full enterprise data platform problem.
 
 - `MockCoreBankingAdapter` simulates core banking reads for customers, accounts, credit cards, loans, transactions, and branches.
-- Product, policy, tool, and mock-core data are now Vietnam/Bank-style and denominated in VND for portfolio alignment.
+- Product, policy, tool, and mock-core data use Vietnam-style banking terminology and VND for portfolio alignment.
 - Realistic messy fixtures include partial KYC, dormant accounts, negative balances, duplicate transactions, pending authorizations, standalone fees, delinquent/restructured loans, and stale branch metadata.
 - PII redaction masks phone numbers, card numbers, account numbers, national id, and email before LLM generation.
 - Privacy Vault tokenizes PII before LLM processing and keeps scoped mappings outside prompts.
@@ -96,7 +98,7 @@ This project does not claim to connect to real Bank systems. Instead, it impleme
 - Audit events record actor id, role, action, purpose, consent status, PII categories, status, and safe metadata.
 - Personal-data tools return masked account identifiers and structured data instead of raw customer records.
 
-For a real bank integration, replace `app/services/mock_core.py` with signed API calls to an API gateway or core banking service, keep the same tool contracts, and enforce bank IAM, consent, rate limits, and audit retention policies.
+For a real bank integration, `app/services/mock_core.py` would only be one small part of the work. A realistic deployment would require approved data contracts, IAM, audit retention, API gateway policies, rate limits, service-level monitoring, and data-quality controls. Large document and customer-data pipelines should be handled outside the runtime agent by data-platform tools such as scheduled ETL/ELT jobs, streaming/CDC pipelines, validation checks, and versioned index refresh workflows.
 
 ## Optimizations Included
 
@@ -148,6 +150,65 @@ The assistant:
 - States when information is missing from documents.
 - Asks for missing calculator or eligibility fields.
 - Marks eligibility and support actions as requiring human review.
+
+## Production Reality and Design Tradeoffs
+
+This section is intentionally explicit because banking AI projects can look stronger than they are if synthetic demos are presented as production evidence.
+
+### Evaluation Honesty
+
+The evaluation suite is mostly synthetic and project-defined. The reported scores should be read as **deterministic regression metrics**, not as proof that the assistant is ready for real customers.
+
+What the current evaluation is useful for:
+
+- Catching regressions in retrieval, intent routing, tool calls, memory slot filling, guardrails, and agent trajectories.
+- Checking that known adversarial prompts, unsupported questions, and golden answers behave consistently.
+- Making the system measurable during development.
+
+What it does not prove:
+
+- Real-world user satisfaction.
+- Robustness against unseen production queries.
+- Coverage of actual bank policies or regulatory edge cases.
+- Quality against SME-labeled answers or anonymized production query logs.
+
+For a real deployment, the next evaluation layer should include SME-labeled golden sets, anonymized query-log replay, human review, policy revision tests, canary/shadow testing, and adversarial cases from risk/compliance teams.
+
+### LangGraph Tradeoff
+
+LangGraph is used here to demonstrate controlled multi-step agent orchestration: policy scan, planning, retrieval decision, tool routing, HITL interrupt, answer validation, critic verification, and retry.
+
+This is not always the right choice. For a public FAQ-only banking bot, a simpler deterministic pipeline or rules-based router would likely be easier to maintain and lower latency. LangGraph is justified only when the workflow needs inspectable state transitions, retries, approval interrupts, and trajectory-level evaluation.
+
+### Data Platform Boundary
+
+The runtime agent should not be responsible for heavy data engineering. In a real bank, product documents, customer records, transactions, loan data, and policy versions are distributed across legacy systems, document stores, data lakes, warehouses, and operational APIs.
+
+A production design would normally separate the layers:
+
+```text
+Core systems / DMS / data lake / warehouse
+        ↓
+Airflow/Dagster/CDC/Spark-style ingestion and validation
+        ↓
+Masked, versioned documents and structured data products
+        ↓
+Versioned vector indexes and approved backend APIs
+        ↓
+FastAPI AI serving layer
+        ↓
+Controlled agent workflow for runtime reasoning and tool use
+```
+
+This project focuses on the last two layers. The mock core adapter and local Chroma store are intentionally small so the repository remains buildable as a portfolio project.
+
+### Privacy and External LLMs
+
+Groq, Gemini, and OpenAI-compatible providers are included for low-cost demos and API-provider abstraction. They should not be interpreted as production-safe choices for real bank PII by default.
+
+For real sensitive workloads, a bank would need a bank-approved model gateway or private deployment path, such as on-prem inference, VPC-hosted models, approved enterprise LLM contracts, private networking, DLP controls, encryption, strict IAM, audit logging, retention guarantees, and legal/compliance review.
+
+PII masking and tokenization in this project are defense-in-depth examples. They are not a license to send confidential customer data to an external API.
 
 ## Repository Structure
 
@@ -305,7 +366,7 @@ python scripts/evaluate_vietnamese.py
 python scripts/generate_evaluation_report.py
 ```
 
-Evaluation set: 90 English/Vietnamese VND banking questions plus dedicated security, hallucination, agentic trajectory, memory, messy-data, and customer-journey suites.
+Evaluation set: 90 English/Vietnamese VND banking questions plus dedicated security, hallucination, agentic trajectory, memory, messy-data, and customer-journey suites. These datasets are synthetic and should be treated as regression coverage, not as an external benchmark.
 
 Retrieval ablation:
 
@@ -366,9 +427,9 @@ Agentic evaluation harness:
 - Goal completion scoring for answered, blocked, tool-executed, and HITL-pending outcomes.
 - Critic pass-rate scoring for final agent verification.
 
-Example report table for README/CV. Replace placeholders after running on your machine or with a real LLM:
+Internal regression report. These numbers are useful for detecting regressions in this repository, but they should not be presented as production-quality guarantees:
 
-| Metric | Target | Current/Placeholder |
+| Metric | Regression Target | Current Internal Result |
 |---|---:|---:|
 | Evaluation dataset size | 80-100 cases | 90 cases |
 | Retrieval top-k accuracy | >= 85% | 96.67% |
@@ -397,6 +458,14 @@ Example report table for README/CV. Replace placeholders after running on your m
 | Multi-turn slot-fill success | 100% | 2/2 cases |
 | Vietnamese intent/tool/guardrail/memory score | >= 90% | 100.00% / 7 cases |
 | Messy data quality flags | >= 10 | 19 |
+
+Recommended next evaluation layer:
+
+- SME-labeled policy and product Q&A.
+- Anonymized real query replay if available.
+- Human preference review for answer usefulness.
+- Separate hidden test sets that are not derived from the same mock documents.
+- Longitudinal regression after document updates and policy changes.
 
 ## Docker
 
@@ -454,7 +523,7 @@ GROQ_MODEL=llama-3.3-70b-versatile
 GROQ_BASE_URL=https://api.groq.com/openai/v1
 ```
 
-For higher free-tier throughput, check your Groq console rate limits and consider swapping `GROQ_MODEL` to a smaller model such as `llama-3.1-8b-instant`.
+For higher free-tier throughput in demos, check your Groq console rate limits and consider swapping `GROQ_MODEL` to a smaller model such as `llama-3.1-8b-instant`.
 
 For OpenAI-compatible generation:
 
@@ -464,11 +533,11 @@ OPENAI_API_KEY=your_key
 OPENAI_MODEL=gpt-4o-mini
 ```
 
-The code keeps retrieval/tooling deterministic, so evaluation can run without an external model.
+The code keeps retrieval/tooling deterministic, so core evaluation can run without an external model. External LLM providers are intended for demos and provider-abstraction testing, not as a blanket recommendation for sensitive banking workloads.
 
 ## Limitations
 
-- Banking documents, customer records, branch data, transactions, and fees are synthetic Bank/Vietnam-style fixtures, not official Bank data.
+- Banking documents, customer records, branch data, transactions, and fees are synthetic Vietnam-style fixtures, not official data from any bank.
 - The mock core banking adapter demonstrates the integration boundary, but a real deployment would need a signed API gateway, bank IAM, audit retention, rate limits, and incident runbooks.
 - Chroma local persistence is suitable for portfolio demos; production should use a highly available vector database such as managed Qdrant, pgvector, or an internal retrieval service.
 - Hash embeddings are cost-efficient and deterministic for local evaluation, but production retrieval quality should be validated with bank-approved embedding models and SME-labeled datasets.
@@ -479,13 +548,13 @@ The code keeps retrieval/tooling deterministic, so evaluation can run without an
 - Support ticket creation is simulated and intentionally gated behind human approval.
 - RAGAS and hallucination datasets are mostly synthetic. For production readiness, they should be extended with SME-labeled golden answers, real policy revisions, and adversarial cases from bank risk teams.
 
-## Bank Privacy Positioning
+## Privacy Positioning
 
-If asked whether a bank should use a fine-tuned model to avoid leaking customer data, the answer is:
+If asked whether a bank should use a fine-tuned model to avoid leaking customer data, the intended answer is:
 
 - Fine-tuning is not the main privacy control. It can improve domain style or task behavior, but it does not automatically prevent data leakage.
 - A bank would usually prioritize private deployment, VPC/on-prem inference, strict IAM, encryption, audit logging, DLP, PII minimization, prompt/output filtering, and tool-level authorization.
 - RAG is preferable for changing policy/product knowledge because documents can be updated, versioned, audited, and retrieved with citations without retraining a model.
 - Fine-tuning may be used later for intent routing, Vietnamese banking language, summarization style, or policy-compliant response patterns, using sanitized and approved datasets.
-- This demo uses Groq/mock providers for cost and speed. The architecture isolates the provider behind `ModelGateway` so the same backend can be moved to a bank-approved model endpoint.
+- This demo uses Groq/mock providers for cost and speed. The architecture isolates the provider behind `ModelGateway` so the same backend can be moved to a private or bank-approved model endpoint if the rest of the compliance requirements are satisfied.
 
